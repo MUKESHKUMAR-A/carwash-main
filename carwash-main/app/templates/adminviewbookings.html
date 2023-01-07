@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %} {% block content %}
+  <head>
+    <title>Admin Page</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background-color: lightgray;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+}
+
+.button {
+  display: inline-block;
+  background-color: tomato;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid tomato;
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.shadow1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+    </style>
+  </head>
+  <body>
+    <a
+      class="button"
+      style="margin-left: 1em; margin-top: 1em"
+      href="{% url 'home' %}"
+      >back</a
+    >
+    <div class="container">
+      <h3 style="text-align: center">Customers Bookings</h3>
+
+      <div class="shadow1">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              id="location"
+              placeholder="location"
+              name="location"
+              required
+            />
+          </div>
+          <div class="col">
+            <input
+              type="date"
+              id="inputdate"
+              placeholder="Date"
+              name="inputdate"
+              required
+            />
+          </div>
+        </div>
+        <br />
+
+        <table class="table" id="bookings_table">
+          <thead>
+            <tr>
+              <th scope="col">Booking ID</th>
+              <th scope="col">Location</th>
+              <th scope="col">Service</th>
+              <th scope="col">Customer ID</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for booking in bookings %}
+            <tr id="parentRow">
+              <td>{{booking.id}}</td>
+              <td id="unique">{{booking.service_details.location}}</td>
+              <td>{{booking.service_details.service_type}}</td>
+              <td>{{booking.customer_details.id}}</td>
+              <td>{{booking.customer_details.username}}</td>
+              <td>{{booking.status}}</td>
+              <td>{{booking.date_created}}</td>
+              <td>
+                <a
+                  class="button"
+                  href="{% url 'admin_modify_status' booking.id '1' %}"
+                  >Accept</a
+                >
+                <a
+                  class="button"
+                  href="{% url 'admin_modify_status' booking.id '0' %}"
+                  >Reject</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+  {% block js_block %}
+  <script type="text/javascript " src="{% static 'js/filter.js' %}"></script>
+  {% endblock %}
+</html>

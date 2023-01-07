@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} {% block content %}
+  <head>
+    <title>MK CAR</title>
+    <style>
+      body#page-top {
+  background-color: skyblue;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: 4em;
+  color: #333;
+  margin: 10px 0;
+}
+
+p {
+  font-size: 1.5em;
+  color: #555;
+}
+
+a {
+  display: inline-block;
+  margin: 20px 10px;
+  padding: 10px 20px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  font-size: 1.2em;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+a:hover {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+    </style>
+  </head>
+  <body id="page-top">
+    <main >
+      <div>
+        <h1>MK CAR</h1>
+        <p >
+          Clean. Hygenic And Ride
+        </p>
+        <br />
+        <a href="{% url 'login' %}" >login</a>
+        <br />
+        <a href="{% url 'register' %}" >Register</a>
+      </div>
+    </main>
+    {% endblock content %}
+  </body>
+</html>

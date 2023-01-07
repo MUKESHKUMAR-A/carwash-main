@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %} {% block content %}
+<head>
+  <title>Home Page</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  color: #333333;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+.vh-50 {
+  height: 50vh;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.placearea input[type="text"] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.placearea label {
+  font-size: 16px;
+}
+
+.submit1 input[type="submit"] {
+  width: 20%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit1 input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+  </style>
+</head>
+<body>
+  <section class="vh-50">
+    <div class="container">
+      <div>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% if request.user.is_staff %}
+        <a href="{% url 'admin_add_places' %}">Add Services</a>
+        <a href="{% url 'show_all_bookings' %}">Show All Bookings</a>
+        {% else %}
+        <a href="{% url 'showBookings' %}">Show Your Bookings</a>
+        {% endif %}
+      </div>
+      <br />
+      <form method="POST" action="{% url 'showServices' %}">
+        {% csrf_token %}
+        <div class="placearea">
+          <input type="text" id="form3Example3" placeholder="Enter Place" name="place" />
+          <label for="form3Example3">Search Place</label>
+        </div>
+        {% for message in messages %}
+              <p id="messages">{{message}}</p>
+              {% endfor %}
+        <div class="submit1">
+          <input type="submit" value="search" />
+        </div>
+      </form>
+    </div>
+  </section>
+  {% endblock content %}
+</body>
+</html>

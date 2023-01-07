@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Signup Page</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 50px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  form div {
+    margin: 20px 0;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  form input[type="submit"] {
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  form label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  form p {
+    font-size: 14px;
+    margin: 20px 0;
+  }
+  
+  form a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  </style>
+</head>
+<body>
+    {% block content %}
+{% load static %}
+  <section class="vh-50">
+    <div class="container">
+      <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div>
+          <input type="text" id="form3Example3" placeholder="Enter UserName" name="username" required>
+          <label for="form3Example3">Username</label>
+        </div>
+        <div>
+          <input type="email" id="form3Example4" placeholder="Enter Email" name="email" required>
+          <label for="form3Example4">Email</label>
+        </div>
+        <div>
+          <input type="password" id="form3Example4" placeholder="Enter password" name="password" required>
+          <label for="form3Example4">Password</label>
+        </div>
+        <div>
+          <input type="password" id="form3Example4" placeholder="Confirm password" name="confirmpassword" required>
+          <label for="form3Example4">Confirm Password</label>
+        </div>
+        {% for message in messages %}
+        <p id="messages">{{message}}</p>
+          {% endfor %}
+        <div>
+          <input type="submit" value="Sign Up">
+          <p>Already had account? <a href="{% url 'login' %}">Login Here</a></p>
+        </div>
+      </form>
+    </div>
+  </section>
+  {% endblock content %}
+</body>
+</html>

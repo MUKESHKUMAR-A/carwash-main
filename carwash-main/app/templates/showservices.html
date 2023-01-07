@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} {% block content %}
+  <head>
+    <title>User Panel</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  color: #333333;
+}
+
+a.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+a.button:hover {
+  background-color: #3e8e41
+}
+
+a.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.shadow1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #4caf50;
+  color: white;
+}
+
+    </style>
+  </head>
+  <body>
+    <a class="button" style="margin-left: 1em; margin-top: 1em" href="{% url 'home' %}">back</a>
+    <div class="container">
+      <h3 style="text-align: center">Services Available</h3>
+      <div class="shadow1">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="">Service Id</th>
+              <th scope="col">Service location</th>
+              <th scope="col">Service Type</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for service in services %}
+            <tr>
+              <td>{{service.id}}</td>
+              <td>{{service.location}}</td>
+              <td>{{service.service_type.type_of_service}}</td>
+              <td>
+                {% if not request.user.is_staff %}
+                <a class="button" href="{% url 'bookService' service.id%}">book</a>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+</html>

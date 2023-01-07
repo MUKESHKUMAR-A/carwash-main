@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  {% block content %}
+  <head>
+    <title>Admin Page</title>
+    <style>
+        a.button {
+  color: white;
+  background-color: blue;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+section.vh-50 {
+  height: 50vh;
+}
+
+div.h-custom {
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.place1,
+.service1 {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+input[type="text"] {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+label {
+  font-size: smaller;
+  color: gray;
+  margin-bottom: 4px;
+}
+
+input[type="submit"] {
+  color: white;
+  background-color: blue;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#messages {
+  color: red;
+}
+
+    </style>
+  </head>
+  <body>
+    <a class="button" style="margin-left: 1em; margin-top: 1em" href="{% url 'home' %}">back</a>
+    <section class="vh-50">
+      <div class="container-fluid h-custom">
+        <h4>Add Services For Customer</h4>
+        <br />
+        <form method="POST" action="{% url 'admin_add_places' %}">
+          {% csrf_token %}
+          <div class="place1">
+            <input type="text" id="form3Example3" placeholder="Enter Place" name="place" />
+            <label for="form3Example3">Add Place</label>
+          </div>
+          <div class="service1">
+            <input type="text" id="form3Example3" placeholder="Enter Service" name="service" />
+            <label for="form3Example3">Add Service</label>
+          </div>
+          {% for message in messages %}
+          <p id="messages">{{message}}</p>
+          {% endfor %}
+          <div class="text-center">
+            <input type="submit" value="add" class="button" />
+          </div>
+        </form>
+      </div>
+    </section>
+    {% endblock content %}
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %} {% block content %}
+  <head>
+    <title>User Page</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  background-color: lightgray;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+}
+
+.button {
+  display: inline-block;
+  background-color: tomato;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.shadow1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+    </style>
+  </head>
+  <body>
+    <a
+      class="button"
+      style="margin-left: 1em; margin-top: 1em"
+      href="{% url 'home' %}"
+      >back</a
+    >
+    <div class="container">
+      <h3 style="text-align: center">Your Bookings</h3>
+      <div class="shadow1">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Booking Id</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Service Type</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for booking in bookings %}
+            <tr>
+              <td>{{booking.id}}</td>
+              <td>{{booking.status}}</td>
+              <td>{{booking.date_created}}</td>
+              <td>{{booking.service_details.service_type}}</td>
+              <td>{{booking.service_details.location}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+</html>
